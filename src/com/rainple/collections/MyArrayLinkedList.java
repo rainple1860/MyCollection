@@ -1,7 +1,7 @@
 package com.rainple.collections;
 
 /**
- * Ë«ÏòÁ´±í½á¹¹
+ * 双向链表
  * @param <E>
  */
 public class MyArrayLinkedList<E> {
