@@ -68,7 +68,7 @@ public class MyHashMap<K,V> {
             }
         }
         //À©ÈÝ
-        if (size >= threshold*load_factory){
+        if (size > threshold*load_factory){
            threshold = threshold << 1;
            resize(threshold);
         }
