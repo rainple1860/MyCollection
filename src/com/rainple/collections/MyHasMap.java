@@ -11,7 +11,8 @@ public class MyHasMap<K,V> {
     //二叉树转链表阈值
     static final int UNTREEIFY_THRESHOLD = 6;
     //负载因子，当map的数据达到 负载因子和threshold的乘积时自动扩容，减少hash碰撞
-    private float load_factory = 0.75f;
+    private float load_factory;
+    private static final float DEFAULT_LOAD_FACTORY = 0.75f;
     //数据数量
     private int size;
     //存在数据的数组，采用链地址的方式来解决碰撞问题
@@ -20,6 +21,7 @@ public class MyHasMap<K,V> {
 
     public MyHasMap() {
         this.threshold = DEFAULT_INITIAL_CAPACITY;
+        this.load_factory = DEFAULT_LOAD_FACTORY;
         table = new Node[threshold];
     }
 
