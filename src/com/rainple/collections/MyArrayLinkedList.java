@@ -1,5 +1,9 @@
 package com.rainple.collections;
 
+/**
+ * 双向链表结构
+ * @param <E>
+ */
 public class MyArrayLinkedList<E> {
 
     private Node<E> first;
