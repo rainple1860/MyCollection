@@ -1,7 +1,7 @@
 package com.rainple.collections;
 
 /**
- * 双向链表
+ * 双向链表，适用于插入删除操作较多的场景，因为双向链表删除和插入的操作比较快，查询比较慢
  * @param <E>
  */
 public class MyArrayLinkedList<E> {
@@ -10,6 +10,9 @@ public class MyArrayLinkedList<E> {
      * 头部
      */
     private Node<E> first;
+    /**
+     * 尾部
+     */
     private Node<E> last;
     private int size;
 
@@ -17,6 +20,10 @@ public class MyArrayLinkedList<E> {
         size = 0;
     }
 
+    /**
+     * 插入到头部
+     * @param e
+     */
     private void linkFirst(E e){
         Node f = first;
         Node n = new Node(e,null,f);
@@ -28,6 +35,10 @@ public class MyArrayLinkedList<E> {
         }
     }
 
+    /**
+     * 插入到尾部
+     * @param e
+     */
     private void linkLast(E e){
         Node l = last;
         Node n = new Node(e,l,null);
