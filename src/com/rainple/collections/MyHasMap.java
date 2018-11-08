@@ -25,6 +25,12 @@ public class MyHasMap<K,V> {
         table = new Node[threshold];
     }
 
+    public MyHasMap(int initialCapacity){
+        this.threshold = initialCapacity;
+        this.load_factory = DEFAULT_LOAD_FACTORY;
+        table = new Node[threshold];
+    }
+
     public MyHasMap(int capacity,float load_factory) {
         this.threshold = capacity;
         this.load_factory = load_factory;
