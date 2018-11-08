@@ -49,6 +49,9 @@ public class MyArrayLinkedList<E> {
             l.next = last;
     }
 
+    /**
+     * 删除头部
+     */
     private void unLinkFirst(){
         Node<E> next = first.next;
         Node f = first;
