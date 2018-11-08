@@ -6,6 +6,9 @@ package com.rainple.collections;
  */
 public class MyArrayLinkedList<E> {
 
+    /**
+     * Á´±íÍ·²¿
+     */
     private Node<E> first;
     private Node<E> last;
     private int size;
