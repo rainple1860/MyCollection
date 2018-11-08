@@ -1,13 +1,13 @@
 package com.rainple.collections;
 
 /**
- * 双向链表结构
+ * 脣芦脧貌脕麓卤铆陆谩鹿鹿
  * @param <E>
  */
 public class MyArrayLinkedList<E> {
 
     /**
-     * 链表头部
+     * 澶撮儴
      */
     private Node<E> first;
     private Node<E> last;
