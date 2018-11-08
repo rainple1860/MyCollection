@@ -88,13 +88,14 @@ public class MyHashMap<K,V> {
                     for (int j = 0; j < all.size(); j++) {
                         Node<K, V> n = all.get(j);
                         int index = n.hash & (newThreshold - 1);
-                        newTable[index] = n;
+                        putOltNodeToNewNode(newTable,n,index);
                     }
                 }else {
                     Node<K,V> current = node;
                     while (current != null){
                         int index = current.hash & (newThreshold - 1);
-                        newTable[index] = current;
+                        Node old = current;
+                        putOltNodeToNewNode(newTable, old, index);
                         current = current.next;
                     }
                 }
@@ -102,6 +103,34 @@ public class MyHashMap<K,V> {
             }
         }
         table = newTable;
+    }
+
+    private void putOltNodeToNewNode(Node[] newTable, Node<K, V> current, int index) {
+        Node newNode = newTable[index];
+        if (newNode == null){
+            if (current.next == null){
+                newTable[index] = current;
+            }else {
+                Node c = current;
+                newTable[index] = c;
+                newTable[index].next = null;
+            }
+        } else{
+            Node n = newNode;
+            int count = 0;
+            while (n != null){
+                Node next = n.next;
+                if (next == null){
+                    if (count > TREEIFY_THRESHOLD - 1){
+                        transferToBinaryTree(newTable,current.hash);
+                    }else {
+                        n.next = current;
+                    }
+                }
+                count++;
+                n = next;
+            }
+        }
     }
 
     /**

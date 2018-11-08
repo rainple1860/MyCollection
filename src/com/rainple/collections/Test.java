@@ -22,11 +22,13 @@ public class Test {
     public static void testHashMap(){
 
         MyHashMap<String,Integer> myHashMap = new MyHashMap<>();
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 100; i++) {
             myHashMap.put(UUID.randomUUID().toString().substring(0,5),i);
         }
         System.out.println("碰撞率：" + myHashMap.boomRate());
         System.out.println("使用率：" + myHashMap.useRate());
+        System.out.println(myHashMap);
+        //System.out.println(myHashMap);
 //        Map<String,String> myHashMap = new HashMap<>();
 //        int size = 10000000;
 //        long start = System.currentTimeMillis();
