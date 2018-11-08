@@ -6,14 +6,14 @@ import java.util.NoSuchElementException;
 public class MyHashSet<E> implements Iterable<E> {
 
     private static final Object OBJECT = new Object();
-    private MyHasMap<E,Object> hasMap;
+    private MyHashMap<E,Object> hasMap;
 
     public MyHashSet(){
-        hasMap = new MyHasMap<>();
+        hasMap = new MyHashMap<>();
     }
 
     public MyHashSet(int initialCapacity){
-        hasMap = new MyHasMap(initialCapacity,0.75f);
+        hasMap = new MyHashMap(initialCapacity,0.75f);
     }
 
     public void add(E e){
@@ -72,7 +72,7 @@ public class MyHashSet<E> implements Iterable<E> {
 
         @Override
         public E next() {
-            MyHasMap.Node<E, Object>[] nodes = hasMap.entrySet();
+            MyHashMap.Node<E, Object>[] nodes = hasMap.entrySet();
             int i = cursor;
             if (i >= size())
                 throw new NoSuchElementException();

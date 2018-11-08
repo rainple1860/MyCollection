@@ -1,20 +1,16 @@
 package com.rainple.collections;
 
-import sun.applet.Main;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class Test {
 
     public static void main(String[] args) {
-        //testHashMap();
-        testArrayList();
+        testHashMap();
+        //testArrayList();
     }
 
     public static void testArrayList(){
-        MyArrayList<Integer> myArrayList = new MyArrayList();
+        MyArrayList<Integer> myArrayList = new MyArrayList<>();
         for (int i = 0; i < 100; i++) {
             myArrayList.add(i);
         }
@@ -24,17 +20,24 @@ public class Test {
     }
 
     public static void testHashMap(){
-        Map<String,String> myHasMap = new HashMap<>();
-        int size = 10000000;
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < size; i++) {
-            String s = UUID.randomUUID().toString();
-            myHasMap.put(s,s);
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("HashMap插入"+ size + " 条数据所需时间：" + (end - start) + " 毫秒");
 
-//        MyHasMap<String,String> map = new MyHasMap<>();
+        MyHashMap<String,Integer> myHashMap = new MyHashMap<>();
+        for (int i = 0; i < 1000000; i++) {
+            myHashMap.put(UUID.randomUUID().toString().substring(0,5),i);
+        }
+        System.out.println("碰撞率：" + myHashMap.boomRate());
+        System.out.println("使用率：" + myHashMap.useRate());
+//        Map<String,String> myHashMap = new HashMap<>();
+//        int size = 10000000;
+//        long start = System.currentTimeMillis();
+//        for (int i = 0; i < size; i++) {
+//            String s = UUID.randomUUID().toString();
+//            myHashMap.put(s,s);
+//        }
+//        long end = System.currentTimeMillis();
+//        System.out.println("HashMap插入"+ size + " 条数据所需时间：" + (end - start) + " 毫秒");
+
+//        MyHashMap<String,String> map = new MyHashMap<>();
 //        start = System.currentTimeMillis();
 //        for (int i = 0; i < size; i++) {
 //            String s = UUID.randomUUID().toString();
