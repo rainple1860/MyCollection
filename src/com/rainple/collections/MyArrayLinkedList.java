@@ -1,12 +1,12 @@
 package com.rainple.collections;
 
-public class MyLinkedList<E> {
+public class MyArrayLinkedList<E> {
 
     private Node<E> first;
     private Node<E> last;
     private int size;
 
-    public MyLinkedList(){
+    public MyArrayLinkedList(){
         size = 0;
     }
 
