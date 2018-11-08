@@ -94,8 +94,8 @@ public class MyHashMap<K,V> {
                     Node<K,V> current = node;
                     while (current != null){
                         int index = current.hash & (newThreshold - 1);
-                        Node old = current;
-                        putOltNodeToNewNode(newTable, old, index);
+                        //Node old = current;
+                        putOltNodeToNewNode(newTable,current, index);
                         current = current.next;
                     }
                 }
@@ -111,23 +111,23 @@ public class MyHashMap<K,V> {
             if (current.next == null){
                 newTable[index] = current;
             }else {
-                Node c = current;
-                newTable[index] = c;
-                newTable[index].next = null;
+                Node<K, V> n = new Node<>(current.hash,current.key,current.val,null);
+                newTable[index] = n;
             }
         } else{
             Node n = newNode;
             int count = 0;
             while (n != null){
                 Node next = n.next;
+                count++;
                 if (next == null){
-                    if (count > TREEIFY_THRESHOLD - 1){
+                    if (count > TREEIFY_THRESHOLD){
                         transferToBinaryTree(newTable,current.hash);
                     }else {
-                        n.next = current;
+                        Node<K, V> n1 = new Node<>(current.hash,current.key,current.val,null);
+                        n.next = n1;
                     }
                 }
-                count++;
                 n = next;
             }
         }
@@ -187,7 +187,7 @@ public class MyHashMap<K,V> {
         Tree tree = new Tree();
         while (node != null) {
             tree.insert(node);
-            Node n = node.getNext();
+            Node<K, V> n = node.getNext();
             node.next = null;
             node = n;
         }
@@ -455,10 +455,10 @@ public class MyHashMap<K,V> {
          * @param delTree
          * @return
          */
-        private Tree<K, V> findAndDeleteReplaceNode(Tree delTree) {
-            Tree rightChild = delTree.rightChild;
-            Tree target = null;
-            Tree current = rightChild.leftChild;
+        private Tree<K, V> findAndDeleteReplaceNode(Tree<K, V> delTree) {
+            Tree<K, V> rightChild = delTree.rightChild;
+            Tree<K, V> target = null;
+            Tree<K, V> current = rightChild.leftChild;
             if (current == null){
                 target = rightChild;
             }else {
@@ -684,7 +684,7 @@ public class MyHashMap<K,V> {
     }
 
     public MyHashSet<K> keySet(){
-        MyHashSet hashSet = new MyHashSet();
+        MyHashSet<K> hashSet = new MyHashSet<>();
         for (Node<K, V> node : entrySet()) {
             hashSet.add(node.key);
         }
@@ -769,7 +769,7 @@ public class MyHashMap<K,V> {
      * @param index
      * @param n
      */
-    private void inserIntoChainList(int index,Node n){
+    private void inserIntoChainList(int index, Node<K, V> n){
         Node<K, V> node = table[index];
         if (node == null){
             table[index] = n;

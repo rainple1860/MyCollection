@@ -22,8 +22,8 @@ public class Test {
     public static void testHashMap(){
 
         MyHashMap<String,Integer> myHashMap = new MyHashMap<>();
-        for (int i = 0; i < 100; i++) {
-            myHashMap.put(UUID.randomUUID().toString().substring(0,5),i);
+        for (int i = 0; i < 102; i++) {
+            myHashMap.put(UUID.randomUUID().toString(),i);
         }
         System.out.println("碰撞率：" + myHashMap.boomRate());
         System.out.println("使用率：" + myHashMap.useRate());
