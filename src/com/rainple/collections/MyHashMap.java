@@ -1,5 +1,7 @@
 package com.rainple.collections;
 
+import java.util.Arrays;
+
 public class MyHashMap<K,V> {
 
     //默认初始化容量
@@ -79,41 +81,33 @@ public class MyHashMap<K,V> {
      * @param newThreshold 数组的大小
      */
     private void resize(int newThreshold) {
-        Node[] newTable = new Node[newThreshold];
-        for (int i = 0; i < table.length; i++) {
-            Node<K, V> node = table[i];
+        Node<K,V>[] oldTab = table;
+        table = new Node[newThreshold];
+        for (int i = 0; i < oldTab.length; i++) {
+            Node<K,V> node = oldTab[i];
             if (node != null) {
-                if (node instanceof Tree){
-                    MyArrayList<Node<K,V>> all = ((Tree<K,V>) node).getTreeNodes();
-                    for (int j = 0; j < all.size(); j++) {
-                        Node<K, V> n = all.get(j);
-                        int index = n.hash & (newThreshold - 1);
-                        putOltNodeToNewNode(newTable,n,index);
-                    }
-                }else {
-                    Node<K,V> current = node;
-                    while (current != null){
-                        int index = current.hash & (newThreshold - 1);
-                        //Node old = current;
-                        putOltNodeToNewNode(newTable,current, index);
-                        current = current.next;
-                    }
-                }
-                table[i] = null;
+                int index = node.hash & (newThreshold - 1);
+                table[index] = node;
+//                if (node instanceof Tree){
+//                    MyArrayList<Node<K,V>> all = ((Tree<K,V>) node).getTreeNodes();
+//                    for (int j = 0; j < all.size(); j++) {
+//                        Node<K, V> n = all.get(j);
+//                        int index = n.hash & (newThreshold - 1);
+//                        putOltNodeToNewNode(table,n,index);
+//                    }
+//                }else {//不将链表每个元素重新hash，而是将整个链表直接放在数组中
+//                    int index = node.hash & (newThreshold - 1);
+//                    table[index] = node;
+//                }
+                oldTab[i] = null;
             }
         }
-        table = newTable;
     }
 
     private void putOltNodeToNewNode(Node[] newTable, Node<K, V> current, int index) {
         Node newNode = newTable[index];
         if (newNode == null){
-            if (current.next == null){
-                newTable[index] = current;
-            }else {
-                Node<K, V> n = new Node<>(current.hash,current.key,current.val,null);
-                newTable[index] = n;
-            }
+            newTable[index] = current;
         } else{
             Node n = newNode;
             int count = 0;
@@ -124,8 +118,7 @@ public class MyHashMap<K,V> {
                     if (count > TREEIFY_THRESHOLD){
                         transferToBinaryTree(newTable,current.hash);
                     }else {
-                        Node<K, V> n1 = new Node<>(current.hash,current.key,current.val,null);
-                        n.next = n1;
+                        n.next = current;
                     }
                 }
                 n = next;
@@ -153,7 +146,7 @@ public class MyHashMap<K,V> {
             }
             if (next == null) {
                 parent.setNext(new Node<>(hash,key, value, null));
-                if (count >= TREEIFY_THRESHOLD) {
+                if (count >= TREEIFY_THRESHOLD - 2) {
                     //转化成二叉树
                     transferToBinaryTree(tbl, hash);
                 }
@@ -494,7 +487,6 @@ public class MyHashMap<K,V> {
             if (node != null){
                 clear(root.leftChild);
                 clear(root.rightChild);
-                node = null;
             }
         }
 
@@ -760,7 +752,7 @@ public class MyHashMap<K,V> {
         int index = indexFor(hash);
         table[index] = null;
         for (int i = 0 ; i < nodes.size() ; i ++){
-           inserIntoChainList(index,nodes.get(i));
+           insertIntoChainList(index,nodes.get(i));
         }
     }
 
@@ -769,7 +761,7 @@ public class MyHashMap<K,V> {
      * @param index
      * @param n
      */
-    private void inserIntoChainList(int index, Node<K, V> n){
+    private void insertIntoChainList(int index, Node<K, V> n){
         Node<K, V> node = table[index];
         if (node == null){
             table[index] = n;
@@ -806,6 +798,9 @@ public class MyHashMap<K,V> {
                 }
             }
         }
+        if (index < size)
+            nodes = Arrays.copyOf(nodes,index);
+        System.out.println(nodes.length);
         return nodes;
     }
     @Override
