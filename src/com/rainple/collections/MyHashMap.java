@@ -481,12 +481,15 @@ public class MyHashMap<K,V> {
          */
         public void clear(){
            clear(root);
+           root = null;
         }
 
-        private void clear(Node<K,V> node) {
+        private void clear(Tree<K,V> node) {
             if (node != null){
-                clear(root.leftChild);
-                clear(root.rightChild);
+                clear(node.leftChild);
+                node.leftChild = null;
+                clear(node.rightChild);
+                node.rightChild = null;
             }
         }
 

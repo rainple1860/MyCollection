@@ -235,9 +235,7 @@ public class MyTreeMap<K,V> {
 
     public V remove(Object key){
         if (key == null) return null;
-        Entry<K,V> current = root;
-        int ret;
-        Entry<K,V> delEntry = null;
+        Entry<K,V> delEntry;
         delEntry = getEntry(key);
         if (delEntry == null) return null;
         size--;
